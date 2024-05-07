@@ -30,7 +30,7 @@ def generate_search_queries_prompt(
     return (
         f'Write {max_iterations} google search queries to search online that form an objective opinion from the following task: "{task}"'
         f'Use the current date if needed: {datetime.now().strftime("%B %d, %Y")}.\n'
-        f'Also include in the queries specified task details such as locations, names, etc.\n'
+        f"Also include in the queries specified task details such as locations, names, etc.\n"
         f'You must respond with a list of strings in the following format: ["query 1", "query 2", "query 3"].'
     )
 
@@ -44,7 +44,7 @@ def generate_report_prompt(question, context, report_format="apa", total_words=1
 
     return (
         f'Information: """{context}"""\n\n'
-        f'Using the above information, answer the following'
+        f"Using the above information, answer the following"
         f' query or task: "{question}" in a detailed report --'
         " The report should focus on the answer to the query, should be well structured, informative,"
         f" in depth and comprehensive, with facts and numbers if available and a minimum of {total_words} words.\n"

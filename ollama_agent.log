@@ -1,0 +1,23 @@
+2024-05-07 11:40:03,877 - INFO - Retrying request to /chat/completions in 0.916726 seconds
+2024-05-07 11:40:04,835 - INFO - Retrying request to /chat/completions in 1.697289 seconds
+2024-05-07 11:40:06,580 - INFO - Retrying request to /chat/completions in 3.173250 seconds
+2024-05-07 11:40:09,804 - WARNING - Retrying llama_index.llms.openai.base.OpenAI._chat in 0.6873715427445699 seconds as it raised APIConnectionError: Connection error..
+2024-05-07 11:40:10,533 - INFO - Retrying request to /chat/completions in 0.848024 seconds
+2024-05-07 11:40:11,414 - INFO - Retrying request to /chat/completions in 1.929460 seconds
+2024-05-07 11:40:13,379 - INFO - Retrying request to /chat/completions in 3.640410 seconds
+2024-05-07 11:40:17,058 - WARNING - Retrying llama_index.llms.openai.base.OpenAI._chat in 0.04220816610371392 seconds as it raised APIConnectionError: Connection error..
+2024-05-07 11:40:17,161 - INFO - Retrying request to /chat/completions in 0.961507 seconds
+2024-05-07 11:40:18,164 - INFO - Retrying request to /chat/completions in 1.630984 seconds
+2024-05-07 11:40:19,837 - INFO - Retrying request to /chat/completions in 3.334228 seconds
+2024-05-07 11:40:23,205 - WARNING - Retrying llama_index.llms.openai.base.OpenAI._chat in 0.33043303929929513 seconds as it raised APIConnectionError: Connection error..
+2024-05-07 11:40:23,597 - INFO - Retrying request to /chat/completions in 0.830719 seconds
+2024-05-07 11:40:24,467 - INFO - Retrying request to /chat/completions in 1.937070 seconds
+2024-05-07 11:40:26,443 - INFO - Retrying request to /chat/completions in 3.985076 seconds
+2024-05-07 11:40:30,463 - WARNING - Retrying llama_index.llms.openai.base.OpenAI._chat in 0.4198135126014728 seconds as it raised APIConnectionError: Connection error..
+2024-05-07 11:40:30,921 - INFO - Retrying request to /chat/completions in 0.975637 seconds
+2024-05-07 11:40:31,934 - INFO - Retrying request to /chat/completions in 1.552015 seconds
+2024-05-07 11:40:33,520 - INFO - Retrying request to /chat/completions in 3.578504 seconds
+2024-05-07 11:40:37,135 - WARNING - Retrying llama_index.llms.openai.base.OpenAI._chat in 4.206993897312794 seconds as it raised APIConnectionError: Connection error..
+2024-05-07 11:40:41,404 - INFO - Retrying request to /chat/completions in 0.851532 seconds
+2024-05-07 11:40:42,305 - INFO - Retrying request to /chat/completions in 1.832049 seconds
+2024-05-07 11:40:44,190 - INFO - Retrying request to /chat/completions in 3.087176 seconds
