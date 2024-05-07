@@ -2,7 +2,6 @@ from langchain_community.document_loaders import WebBaseLoader
 
 
 class WebBaseLoaderScraper:
-
     def __init__(self, link, session=None):
         self.link = link
         self.session = session
@@ -11,7 +10,7 @@ class WebBaseLoaderScraper:
         """
         This Python function scrapes content from a webpage using a WebBaseLoader object and returns the
         concatenated page content.
-        
+
         Returns:
           The `scrape` method is returning a string variable named `content` which contains the
         concatenated page content from the documents loaded by the `WebBaseLoader`. If an exception

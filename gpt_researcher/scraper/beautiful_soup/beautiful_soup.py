@@ -2,7 +2,6 @@ from bs4 import BeautifulSoup
 
 
 class BeautifulSoupScraper:
-
     def __init__(self, link, session=None):
         self.link = link
         self.session = session
@@ -11,7 +10,7 @@ class BeautifulSoupScraper:
         """
         This function scrapes content from a webpage by making a GET request, parsing the HTML using
         BeautifulSoup, and extracting script and style elements before returning the cleaned content.
-        
+
         Returns:
           The `scrape` method is returning the cleaned and extracted content from the webpage specified
         by the `self.link` attribute. The method fetches the webpage content, removes script and style
@@ -36,7 +35,7 @@ class BeautifulSoupScraper:
         except Exception as e:
             print("Error! : " + str(e))
             return ""
-        
+
     def get_content_from_url(self, soup):
         """Get the text from the soup
 

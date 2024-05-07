@@ -6,13 +6,7 @@ from langchain_google_genai import ChatGoogleGenerativeAI
 
 
 class GoogleProvider:
-
-    def __init__(
-        self,
-        model,
-        temperature,
-        max_tokens
-    ):
+    def __init__(self, model, temperature, max_tokens):
         # May be extended to support more google models in the future
         self.model = "gemini-pro"
         self.temperature = temperature
@@ -30,7 +24,8 @@ class GoogleProvider:
             api_key = os.environ["GEMINI_API_KEY"]
         except:
             raise Exception(
-                "GEMINI API key not found. Please set the GEMINI_API_KEY environment variable.")
+                "GEMINI API key not found. Please set the GEMINI_API_KEY environment variable."
+            )
         return api_key
 
     def get_llm_model(self):
@@ -40,7 +35,7 @@ class GoogleProvider:
             model=self.model,
             temperature=self.temperature,
             max_output_tokens=self.max_tokens,
-            google_api_key=self.api_key
+            google_api_key=self.api_key,
         )
 
         return llm
@@ -49,12 +44,12 @@ class GoogleProvider:
         """
         The function `convert_messages` converts messages based on their role into either SystemMessage
         or HumanMessage objects.
-        
+
         Args:
           messages: It looks like the code snippet you provided is a function called `convert_messages`
         that takes a list of messages as input and converts each message based on its role into either a
         `SystemMessage` or a `HumanMessage`.
-        
+
         Returns:
           The `convert_messages` function is returning a list of converted messages based on the input
         `messages`. The function checks the role of each message in the input list and creates a new
@@ -64,11 +59,9 @@ class GoogleProvider:
         converted_messages = []
         for message in messages:
             if message["role"] == "system":
-                converted_messages.append(
-                    SystemMessage(content=message["content"]))
+                converted_messages.append(SystemMessage(content=message["content"]))
             elif message["role"] == "user":
-                converted_messages.append(
-                    HumanMessage(content=message["content"]))
+                converted_messages.append(HumanMessage(content=message["content"]))
 
         return converted_messages
 
@@ -95,7 +88,9 @@ class GoogleProvider:
                 paragraph += content
                 if "\n" in paragraph:
                     if websocket is not None:
-                        await websocket.send_json({"type": "report", "output": paragraph})
+                        await websocket.send_json(
+                            {"type": "report", "output": paragraph}
+                        )
                     else:
                         print(f"{Fore.GREEN}{paragraph}{Style.RESET_ALL}")
                     paragraph = ""

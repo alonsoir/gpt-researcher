@@ -5,11 +5,7 @@ from .utils.views import print_agent_output
 from memory.research import ResearchState
 
 # Import agent classes
-from . import \
-    WriterAgent, \
-    EditorAgent, \
-    PublisherAgent, \
-    ResearchAgent
+from . import WriterAgent, EditorAgent, PublisherAgent, ResearchAgent
 
 
 class MasterAgent:
@@ -35,14 +31,14 @@ class MasterAgent:
         workflow.add_node("writer", writer_agent.run)
         workflow.add_node("publisher", publisher_agent.run)
 
-        workflow.add_edge('browser', 'planner')
-        workflow.add_edge('planner', 'researcher')
-        workflow.add_edge('researcher', 'writer')
-        workflow.add_edge('writer', 'publisher')
+        workflow.add_edge("browser", "planner")
+        workflow.add_edge("planner", "researcher")
+        workflow.add_edge("researcher", "writer")
+        workflow.add_edge("writer", "publisher")
 
         # set up start and end nodes
         workflow.set_entry_point("browser")
-        workflow.add_edge('publisher', END)
+        workflow.add_edge("publisher", END)
 
         return workflow
 
@@ -52,7 +48,10 @@ class MasterAgent:
         # compile the graph
         chain = research_team.compile()
 
-        print_agent_output(f"Starting the research process for query '{self.task.get('query')}'...", "MASTER")
+        print_agent_output(
+            f"Starting the research process for query '{self.task.get('query')}'...",
+            "MASTER",
+        )
         result = await chain.ainvoke({"task": self.task})
 
         return result

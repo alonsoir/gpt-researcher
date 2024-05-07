@@ -5,6 +5,7 @@ TEMPLATE = """You are an expert research article reviewer. \
 Your goal is to review research drafts and provide feedback to the reviser only based on specific guidelines. \
 """
 
+
 class ReviewerAgent:
     def __init__(self):
         pass
@@ -16,7 +17,7 @@ class ReviewerAgent:
         :return:
         """
         task = draft_state.get("task")
-        guidelines = '- '.join(guideline for guideline in task.get("guidelines"))
+        guidelines = "- ".join(guideline for guideline in task.get("guidelines"))
         revision_notes = draft_state.get("revision_notes")
 
         revise_prompt = f"""The reviser has already revised the draft based on your previous review notes with the following feedback:
@@ -33,17 +34,14 @@ If the draft meets all the guidelines, please return None.
 
 Guidelines: {guidelines}\nDraft: {draft_state.get("draft")}\n
 """
-        prompt = [{
-            "role": "system",
-            "content": TEMPLATE
-        }, {
-            "role": "user",
-            "content": review_prompt
-        }]
+        prompt = [
+            {"role": "system", "content": TEMPLATE},
+            {"role": "user", "content": review_prompt},
+        ]
 
         response = call_model(prompt, model=task.get("model"))
 
-        if 'None' in response:
+        if "None" in response:
             return None
         return response
 
@@ -53,10 +51,12 @@ Guidelines: {guidelines}\nDraft: {draft_state.get("draft")}\n
         to_follow_guidelines = task.get("follow_guidelines")
         review = None
         if to_follow_guidelines:
-            print_agent_output(f"Reviewing draft...", agent="REVIEWER")
-            print_agent_output(f"Following guidelines {guidelines}...", agent="REVIEWER")
+            print_agent_output("Reviewing draft...", agent="REVIEWER")
+            print_agent_output(
+                f"Following guidelines {guidelines}...", agent="REVIEWER"
+            )
             review = self.review_draft(draft_state)
             print_agent_output(f"Review feedback is: {review}...", agent="REVIEWER")
         else:
-            print_agent_output(f"Ignoring guidelines...", agent="REVIEWER")
+            print_agent_output("Ignoring guidelines...", agent="REVIEWER")
         return {"review": review}

@@ -40,8 +40,7 @@ class WebSocketManager:
         await websocket.accept()
         self.active_connections.append(websocket)
         self.message_queues[websocket] = asyncio.Queue()
-        self.sender_tasks[websocket] = asyncio.create_task(
-            self.start_sender(websocket))
+        self.sender_tasks[websocket] = asyncio.create_task(self.start_sender(websocket))
 
     async def disconnect(self, websocket: WebSocket):
         """Disconnect a websocket."""
@@ -66,14 +65,23 @@ async def run_agent(task, report_type, websocket):
     config_path = ""
     # Instead of running the agent directly run it through the different report type classes
     if report_type == ReportType.DetailedReport.value:
-        researcher = DetailedReport(query=task, source_urls=None, config_path=config_path, websocket=websocket)
+        researcher = DetailedReport(
+            query=task, source_urls=None, config_path=config_path, websocket=websocket
+        )
     else:
-        researcher = BasicReport(query=task, report_type=report_type,
-                                 source_urls=None, config_path=config_path, websocket=websocket)
+        researcher = BasicReport(
+            query=task,
+            report_type=report_type,
+            source_urls=None,
+            config_path=config_path,
+            websocket=websocket,
+        )
 
     report = await researcher.run()
     # measure time
     end_time = datetime.datetime.now()
-    await websocket.send_json({"type": "logs", "output": f"\nTotal run time: {end_time - start_time}\n"})
+    await websocket.send_json(
+        {"type": "logs", "output": f"\nTotal run time: {end_time - start_time}\n"}
+    )
 
     return report

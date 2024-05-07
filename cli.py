@@ -8,6 +8,7 @@ python cli.py "<query>" --report_type <report_type>
 ```
 
 """
+
 import asyncio
 import argparse
 from argparse import RawTextHelpFormatter
@@ -25,7 +26,8 @@ from gpt_researcher.utils.enum import ReportType
 cli = argparse.ArgumentParser(
     description="Generate a research report.",
     # Enables the use of newlines in the help message
-    formatter_class=RawTextHelpFormatter)
+    formatter_class=RawTextHelpFormatter,
+)
 
 # =====================================
 # Arg: Query
@@ -35,7 +37,8 @@ cli.add_argument(
     # Position 0 argument
     "query",
     type=str,
-    help="The query to conduct research on.")
+    help="The query to conduct research on.",
+)
 
 # =====================================
 # Arg: Report Type
@@ -49,18 +52,20 @@ report_type_descriptions = {
     ReportType.ResourceReport.value: "",
     ReportType.OutlineReport.value: "",
     ReportType.CustomReport.value: "",
-    ReportType.SubtopicReport.value: ""
+    ReportType.SubtopicReport.value: "",
 }
 
 cli.add_argument(
     "--report_type",
     type=str,
-    help="The type of report to generate. Options:\n" + "\n".join(
+    help="The type of report to generate. Options:\n"
+    + "\n".join(
         f"  {choice}: {report_type_descriptions[choice]}" for choice in choices
     ),
     # Deserialize ReportType as a List of strings:
     choices=choices,
-    required=True)
+    required=True,
+)
 
 # =============================================================================
 # Main
@@ -68,13 +73,11 @@ cli.add_argument(
 
 
 async def main(args):
-    """ 
+    """
     Conduct research on the given query, generate the report, and write
     it as a markdown file to the output directory.
     """
-    researcher = GPTResearcher(
-        query=args.query,
-        report_type=args.report_type)
+    researcher = GPTResearcher(query=args.query, report_type=args.report_type)
 
     await researcher.conduct_research()
 
@@ -86,6 +89,7 @@ async def main(args):
         f.write(report)
 
     print(f"Report written to '{artifact_filepath}'")
+
 
 if __name__ == "__main__":
     load_dotenv()

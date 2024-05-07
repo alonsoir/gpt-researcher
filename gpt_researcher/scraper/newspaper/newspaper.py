@@ -2,7 +2,6 @@ from newspaper import Article
 
 
 class NewspaperScraper:
-
     def __init__(self, link, session=None):
         self.link = link
         self.session = session
@@ -11,7 +10,7 @@ class NewspaperScraper:
         """
         This Python function scrapes an article from a given link, extracts the title and text content,
         and returns them concatenated with a colon.
-        
+
         Returns:
           The `scrape` method returns a string that contains the title of the article followed by a
         colon and the text of the article. If the title or text is not present, an empty string is

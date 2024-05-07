@@ -3,7 +3,7 @@ import os
 from colorama import Fore, Style
 from langchain_openai import AzureChatOpenAI
 
-'''
+"""
 Please note:
 Needs additional env vars such as: 
     AZURE_OPENAI_ENDPOINT  e.g. https://xxxx.openai.azure.com/",
@@ -16,15 +16,11 @@ config.py settings for Azure OpenAI should look like:
     self.llm_provider = os.getenv('LLM_PROVIDER', "azureopenai")
     self.fast_llm_model = os.getenv('FAST_LLM_MODEL', "gpt-3.5-turbo-16k") #Deployment name of your GPT3.5T model as per azure OpenAI studio deployment section
     self.smart_llm_model = os.getenv('SMART_LLM_MODEL', "gpt4")  #Deployment name of your GPT4 1106-Preview+ (GPT4T) model as per azure OpenAI studio deployment section
-'''
-class AzureOpenAIProvider:
+"""
 
-    def __init__(
-        self,
-        deployment_name,
-        temperature,
-        max_tokens
-    ):
+
+class AzureOpenAIProvider:
+    def __init__(self, deployment_name, temperature, max_tokens):
         self.deployment_name = deployment_name
         self.temperature = temperature
         self.max_tokens = max_tokens
@@ -41,7 +37,8 @@ class AzureOpenAIProvider:
             api_key = os.environ["AZURE_OPENAI_API_KEY"]
         except:
             raise Exception(
-                "Azure OpenAI API key not found. Please set the AZURE_OPENAI_API_KEY environment variable.")
+                "Azure OpenAI API key not found. Please set the AZURE_OPENAI_API_KEY environment variable."
+            )
         return api_key
 
     def get_llm_model(self):
@@ -50,7 +47,7 @@ class AzureOpenAIProvider:
             deployment_name=self.deployment_name,
             temperature=self.temperature,
             max_tokens=self.max_tokens,
-            api_key=self.api_key
+            api_key=self.api_key,
         )
 
         return llm
@@ -77,9 +74,11 @@ class AzureOpenAIProvider:
                 paragraph += content
                 if "\n" in paragraph:
                     if websocket is not None:
-                        await websocket.send_json({"type": "report", "output": paragraph})
+                        await websocket.send_json(
+                            {"type": "report", "output": paragraph}
+                        )
                     else:
                         print(f"{Fore.GREEN}{paragraph}{Style.RESET_ALL}")
                     paragraph = ""
-                    
+
         return response

@@ -1,4 +1,5 @@
 """Selenium web scraping module."""
+
 from __future__ import annotations
 
 import logging
@@ -30,13 +31,14 @@ FILE_DIR = Path(__file__).parent.parent
 
 
 async def async_browse(
-        selenium_web_browser: str,
-        user_agent: str,
-        fast_llm_model: str,
-        summary_token_limit: str,
-        llm_provider: str,
-        url: str, question: str,
-        websocket: WebSocket
+    selenium_web_browser: str,
+    user_agent: str,
+    fast_llm_model: str,
+    summary_token_limit: str,
+    llm_provider: str,
+    url: str,
+    question: str,
+    websocket: WebSocket,
 ) -> str:
     """Browse a website and return the answer and links to the user
 
@@ -70,7 +72,15 @@ async def async_browse(
         )
         await loop.run_in_executor(executor, add_header, driver)
         summary_text = await loop.run_in_executor(
-            executor, summarize_text, fast_llm_model, summary_token_limit, llm_provider, url, text, question, driver
+            executor,
+            summarize_text,
+            fast_llm_model,
+            summary_token_limit,
+            llm_provider,
+            url,
+            text,
+            question,
+            driver,
         )
         if websocket:
             await websocket.send_json(
@@ -118,7 +128,9 @@ def browse_website(url: str, question: str) -> tuple[str, WebDriver]:
     return f"Answer gathered from website: {summary_text} \n \n Links: {links}", driver
 
 
-def scrape_text_with_selenium(selenium_web_browser: str, user_agent: str, url: str) -> tuple[WebDriver, str]:
+def scrape_text_with_selenium(
+    selenium_web_browser: str, user_agent: str, url: str
+) -> tuple[WebDriver, str]:
     """Scrape text from a website using selenium
 
     Args:

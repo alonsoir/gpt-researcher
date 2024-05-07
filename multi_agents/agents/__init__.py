@@ -13,5 +13,5 @@ __all__ = [
     "EditorAgent",
     "PublisherAgent",
     "ReviserAgent",
-    "ReviewerAgent"
+    "ReviewerAgent",
 ]
