@@ -7,9 +7,11 @@ import pandas as pd
 import requests
 from dotenv import load_dotenv
 
+
 def _set_env(var: str):
     if not os.environ.get(var):
         os.environ[var] = getpass.getpass(f"{var}: ")
+
 
 def populate():
     _set_env("ANTHROPIC_API_KEY")
@@ -20,7 +22,9 @@ def populate():
     os.environ["LANGCHAIN_TRACING_V2"] = "true"
     os.environ["LANGCHAIN_PROJECT"] = "Customer Support Bot Tutorial"
 
-    db_url = "https://storage.googleapis.com/benchmarks-artifacts/travel-db/travel2.sqlite"
+    db_url = (
+        "https://storage.googleapis.com/benchmarks-artifacts/travel-db/travel2.sqlite"
+    )
     local_file = "travel2.sqlite"
     # The backup lets us restart for each tutorial section
     backup_file = "travel2.backup.sqlite"
@@ -77,6 +81,15 @@ def populate():
 
     return db
 
+
+def get_db(db_name="travel2.sqlite"):
+    local_file = db_name
+    # Convert the flights to present time for our tutorial
+    conn = sqlite3.connect(local_file)
+    cursor = conn.cursor()
+    return conn, cursor
+
+
 if __name__ == "__main__":
     load_dotenv()
     # Check if the required environment variables are set
@@ -84,8 +97,7 @@ if __name__ == "__main__":
         api_key = os.environ["ANTHROPIC_API_KEY"]
         tavily_api_key = os.environ["TAVILY_API_KEY"]
         langsmith_api_key = os.environ["LANGSMITH_API_KEY"]
-
-        db = populate()
+        populate()
     except KeyError as e:
         print(f"Error: {e.args[0]} environment variable is not set.")
         exit(1)
