@@ -15,5 +15,5 @@ __all__ = [
     "SerpApiSearch",
     "GoogleSearch",
     "SearxSearch",
-    "BingSearch"
+    "BingSearch",
 ]

@@ -1,4 +1,3 @@
-
 from .beautiful_soup.beautiful_soup import BeautifulSoupScraper
 from .newspaper.newspaper import NewspaperScraper
 from .web_base_loader.web_base_loader import WebBaseLoaderScraper
@@ -10,5 +9,5 @@ __all__ = [
     "NewspaperScraper",
     "WebBaseLoaderScraper",
     "ArxivScraper",
-    "PyMuPDFScraper"
+    "PyMuPDFScraper",
 ]

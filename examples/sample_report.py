@@ -18,7 +18,7 @@ async def main():
     await researcher.conduct_research()
     # Write the report
     report = await researcher.write_report()
-    
+
     return report
 
 

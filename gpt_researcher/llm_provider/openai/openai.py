@@ -5,13 +5,7 @@ from langchain_openai import ChatOpenAI
 
 
 class OpenAIProvider:
-
-    def __init__(
-        self,
-        model,
-        temperature,
-        max_tokens
-    ):
+    def __init__(self, model, temperature, max_tokens):
         self.model = model
         self.temperature = temperature
         self.max_tokens = max_tokens
@@ -29,7 +23,8 @@ class OpenAIProvider:
             api_key = os.environ["OPENAI_API_KEY"]
         except KeyError:
             raise Exception(
-                "OpenAI API key not found. Please set the OPENAI_API_KEY environment variable.")
+                "OpenAI API key not found. Please set the OPENAI_API_KEY environment variable."
+            )
         return api_key
 
     def get_base_url(self):
@@ -48,7 +43,7 @@ class OpenAIProvider:
             model=self.model,
             temperature=self.temperature,
             max_tokens=self.max_tokens,
-            api_key=self.api_key
+            api_key=self.api_key,
         )
         if self.base_url:
             llm.base_url = self.base_url
@@ -77,7 +72,9 @@ class OpenAIProvider:
                 paragraph += content
                 if "\n" in paragraph:
                     if websocket is not None:
-                        await websocket.send_json({"type": "report", "output": paragraph})
+                        await websocket.send_json(
+                            {"type": "report", "output": paragraph}
+                        )
                     else:
                         print(f"{Fore.GREEN}{paragraph}{Style.RESET_ALL}")
                     paragraph = ""

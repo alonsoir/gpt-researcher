@@ -1,10 +1,10 @@
 """Text processing functions"""
+
 import urllib
 from typing import Dict, Generator, Optional
 
 from selenium.webdriver.remote.webdriver import WebDriver
 
-from config import Config
 from gpt_researcher_old.retriever.llm_utils import create_chat_completion
 import os
 from md2pdf.core import md2pdf
@@ -41,7 +41,13 @@ def split_text(text: str, max_length: int = 8192) -> Generator[str, None, None]:
 
 
 def summarize_text(
-    fast_llm_model: str, summary_token_limit: int, llm_provider: str, url: str, text: str, question: str, driver: Optional[WebDriver] = None
+    fast_llm_model: str,
+    summary_token_limit: int,
+    llm_provider: str,
+    url: str,
+    text: str,
+    question: str,
+    driver: Optional[WebDriver] = None,
 ) -> str:
     """Summarize text using the OpenAI API
 
@@ -69,9 +75,9 @@ def summarize_text(
         if driver:
             scroll_to_percentage(driver, scroll_ratio * i)
 
-        #memory_to_add = f"Source: {url}\n" f"Raw content part#{i + 1}: {chunk}"
+        # memory_to_add = f"Source: {url}\n" f"Raw content part#{i + 1}: {chunk}"
 
-        #MEMORY.add_documents([Document(page_content=memory_to_add)])
+        # MEMORY.add_documents([Document(page_content=memory_to_add)])
 
         messages = [create_message(chunk, question)]
 
@@ -79,12 +85,12 @@ def summarize_text(
             model=fast_llm_model,
             messages=messages,
             max_tokens=summary_token_limit,
-            llm_provider=llm_provider
+            llm_provider=llm_provider,
         )
         summaries.append(summary)
-        #memory_to_add = f"Source: {url}\n" f"Content summary part#{i + 1}: {summary}"
+        # memory_to_add = f"Source: {url}\n" f"Content summary part#{i + 1}: {summary}"
 
-        #MEMORY.add_documents([Document(page_content=memory_to_add)])
+        # MEMORY.add_documents([Document(page_content=memory_to_add)])
 
     combined_summary = "\n".join(summaries)
     messages = [create_message(combined_summary, question)]
@@ -130,9 +136,10 @@ def create_message(chunk: str, question: str) -> Dict[str, str]:
         "role": "user",
         "content": f'"""{chunk}"""\n'
         f'Using the above text, summarize it based on the following task or query: "{question}".\n'
-        f'If the query cannot be answered using the text, YOU MUST summarize the text in short.\n'
-        f'Include all factual information such as numbers, stats, quotes, etc if available.',
+        f"If the query cannot be answered using the text, YOU MUST summarize the text in short.\n"
+        f"Include all factual information such as numbers, stats, quotes, etc if available.",
     }
+
 
 def write_to_file(filename: str, text: str) -> None:
     """Write text to a file
@@ -144,6 +151,7 @@ def write_to_file(filename: str, text: str) -> None:
     with open(filename, "w") as file:
         file.write(text)
 
+
 async def write_md_to_pdf(task: str, path: str, text: str) -> None:
     file_path = f"{path}/{task}"
     write_to_file(f"{file_path}.md", text)
@@ -154,20 +162,23 @@ async def write_md_to_pdf(task: str, path: str, text: str) -> None:
 
     return encoded_file_path
 
+
 def read_txt_files(directory):
-    all_text = ''
+    all_text = ""
 
     for filename in os.listdir(directory):
-        if filename.endswith('.txt'):
-            with open(os.path.join(directory, filename), 'r') as file:
-                all_text += file.read() + '\n'
+        if filename.endswith(".txt"):
+            with open(os.path.join(directory, filename), "r") as file:
+                all_text += file.read() + "\n"
 
     return all_text
 
 
 def md_to_pdf(input_file, output_file):
-    md2pdf(output_file,
-           md_content=None,
-           md_file_path=input_file,
-           css_file_path=None,
-           base_url=None)
+    md2pdf(
+        output_file,
+        md_content=None,
+        md_file_path=input_file,
+        css_file_path=None,
+        base_url=None,
+    )

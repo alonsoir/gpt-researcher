@@ -11,12 +11,13 @@ load_dotenv()
 
 
 async def main():
-    with open('task.json', 'r') as f:
+    with open("task.json", "r") as f:
         task = json.load(f)
 
     master_agent = MasterAgent(task)
     research_report = await master_agent.run()
     print(research_report)
+
 
 if __name__ == "__main__":
     asyncio.run(main())

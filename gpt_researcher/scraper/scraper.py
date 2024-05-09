@@ -51,7 +51,7 @@ class Scraper:
             if len(content) < 100:
                 return {"url": link, "raw_content": None}
             return {"url": link, "raw_content": content}
-        except Exception as e:
+        except Exception:
             return {"url": link, "raw_content": None}
 
     def get_scraper(self, link):

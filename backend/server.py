@@ -32,9 +32,12 @@ def startup_event():
         os.makedirs("outputs")
     app.mount("/outputs", StaticFiles(directory="outputs"), name="outputs")
 
+
 @app.get("/")
 async def read_root(request: Request):
-    return templates.TemplateResponse('index.html', {"request": request, "report": None})
+    return templates.TemplateResponse(
+        "index.html", {"request": request, "report": None}
+    )
 
 
 @app.websocket("/ws")
@@ -56,10 +59,18 @@ async def websocket_endpoint(websocket: WebSocket):
                     docx_path = await write_md_to_word(report, filename)
                     # Returning the path of saved report files
                     md_path = await write_text_to_md(report, filename)
-                    await websocket.send_json({"type": "path", "output": {"pdf": pdf_path, "docx": docx_path, "md": md_path}})
+                    await websocket.send_json(
+                        {
+                            "type": "path",
+                            "output": {
+                                "pdf": pdf_path,
+                                "docx": docx_path,
+                                "md": md_path,
+                            },
+                        }
+                    )
                 else:
                     print("Error: not enough parameters provided.")
 
     except WebSocketDisconnect:
         await manager.disconnect(websocket)
-
